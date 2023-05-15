@@ -1,0 +1,16 @@
+.body{
+ display: flex;
+ background-position: center;
+ width: 1440px;
+ height: 924px;
+}
+.menu{
+    width: 157px;
+    height: 924px;
+    background-color: #1C1D1F;
+}
+.bodyCenter{
+    width: 1285px;
+    height: 924px;
+    background-color:aqua;
+}
