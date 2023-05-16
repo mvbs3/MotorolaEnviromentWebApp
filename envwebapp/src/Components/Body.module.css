@@ -5,12 +5,39 @@
  height: 924px;
 }
 .menu{
+    
+    border:1px solid #fff;
     width: 157px;
     height: 924px;
     background-color: #1C1D1F;
+    
 }
+.menu nav {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.menu nav button {
+    margin-bottom: 10px;
+    text-decoration: none;
+  
+}
+
 .bodyCenter{
+    border-top: 1px solid #fff;
     width: 1285px;
     height: 924px;
-    background-color:aqua;
+    background-color:#1C1D1F;
+}
+.bodyCenter h1{
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.networkFunctions {
+    width: 1230px;
+    height: 488px;
+    background-color: #2E3235;
+    margin-left: 23px;
 }
