@@ -19,7 +19,14 @@ return(
                     Title = "4g Enviroment"
                     Status = "Offline"
                 />
-
+                <EnviromentDetail
+                    Title = "5g Enviroment"
+                    Status = "Offline"
+                />
+                <EnviromentDetail
+                    Title = "OAI Gnb"
+                    Status = "Offline"
+                />
             </div>
         </div>
     </div>

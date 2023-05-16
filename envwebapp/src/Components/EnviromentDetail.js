@@ -1,26 +1,47 @@
 import React from "react";
+import style from "./EnviromentDetail.module.css"
 
 function EnviromentDetail(props){
     function colorStatus(status){
         if(status === "Online"){
-            <b style={{color:"green"}}>
+          return(
+                <b style={{color:"green"}}>
                 {status}
-            </b>
+                </b>
+            )
         }else if(status === "Offline"){
-            <b style={{color:"red"}}>
-                {status}
-            </b>
+            return(
+                <b style={{color:"red"}}>
+                    {status}
+                </b>
+            )
         }else{
-            <b style={{color:"yellow"}}>
-                {status}
-            </b>
+            return(
+                <b style={{color:"yellow"}}>
+                    {status}
+                </b>
+            )
+        }
+    }
+    
+    function coreComponents(core){
+        var oai5g = ["AMF", "SMF", "UPF", "NRF", "UDM", "UDR", "AUSF", "MYSQL"]
+        if(core === "5g Enviroment"){
+           return(
+            oai5g.map(item => {
+                return <p className={style.networkFunction}>{item}: </p>;
+              })
+           ) 
         }
     }
     return (
-        <>
-        <h1>{props.Title}</h1>
-        <p>Status:{colorStatus(props.Title)}</p>
-        </>
+        <div className = {style.enviromentBlock} >
+            <h1>{props.Title}</h1>
+            <p>Status: {colorStatus(props.Status)}</p>
+            <div>{coreComponents(props.Title)}</div>
+        </div>
+        
+        
     )
 };
 

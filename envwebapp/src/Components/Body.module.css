@@ -36,6 +36,9 @@
 }
 
 .networkFunctions {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
     width: 1230px;
     height: 488px;
     background-color: #2E3235;
