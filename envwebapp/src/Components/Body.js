@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useState}  from "react";
 import style from './Body.module.css'
 import EnviromentDetail from "./EnviromentDetail";
 
 function Body(){
+    const [status5g,setStatus5g] = useState({"AMF":"Offline", "SMF":"Offline", "UPF":"Offline",
+     "NRF":"Offline", "UDM":"Offline", "UDR":"Offline", "AUSF":"Offline", "MYSQL":"Offline"})
+    const set5gGeneralStatus = ()=>{
+        
+    }
 return(
     <div className={style.body}>
         <div className={style.menu}>
