@@ -1,46 +1,43 @@
-.body{
- display: flex;
- background-position: center;
- width: 1440px;
- height: 924px;
+.body {
+  display: flex;
+  background-position: center;
+  width: 1440px;
+  height: 924px;
 }
-.menu{
-    
-    border:1px solid #fff;
-    width: 157px;
-    height: 924px;
-    background-color: #1C1D1F;
-    
+.menu {
+  border: 1px solid #fff;
+  width: 157px;
+  height: 924px;
+  background-color: #1c1d1f;
 }
 .menu nav {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .menu nav button {
-    margin-bottom: 10px;
-    text-decoration: none;
-  
+  margin-bottom: 10px;
+  text-decoration: none;
 }
 
-.bodyCenter{
-    border-top: 1px solid #fff;
-    width: 1285px;
-    height: 924px;
-    background-color:#1C1D1F;
+.bodyCenter {
+  border-top: 1px solid #fff;
+  width: 1285px;
+  height: 924px;
+  background-color: #1c1d1f;
 }
-.bodyCenter h1{
-    margin-top: 5px;
-    padding-left: 20px;
+.bodyCenter h1 {
+  margin-top: 5px;
+  padding-left: 20px;
 }
 
 .networkFunctions {
-    display: flex;
-    flex-direction: row;
-    justify-content:space-around;
-    width: 1230px;
-    height: 488px;
-    background-color: #2E3235;
-    margin-left: 23px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 1230px;
+  height: 600px;
+  background-color: #2e3235;
+  margin-left: 23px;
 }
