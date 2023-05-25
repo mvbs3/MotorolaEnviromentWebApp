@@ -33,7 +33,7 @@ function EnviromentDetail(props) {
     if (core === "5g Enviroment") {
       return Object.keys(oai5g).map((key, i) => {
         return (
-          <p className={style.networkFunction}>
+          <p key={i} className={style.networkFunction}>
             {key}: {colorStatus(oai5g[key])}
           </p>
         );
