@@ -2,7 +2,7 @@ import React from "react";
 import style from "./EnviromentDetail.module.css";
 import axios from 'axios'
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "http://192.168.27.242:5000";
 
 function EnviromentDetail(props) {
   function colorStatus(status) {

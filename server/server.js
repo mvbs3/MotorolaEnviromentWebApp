@@ -14,7 +14,8 @@ function resultTerminal(err,output){
     return
 }
 // log the output received from the command
-console.log("Output:,\n", output)
+
+console.log("Output:,\n", output.split("/n"))
 }
 
 app.get("/5g", (req, res) => {
