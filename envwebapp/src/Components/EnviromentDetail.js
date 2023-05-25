@@ -1,5 +1,8 @@
 import React from "react";
 import style from "./EnviromentDetail.module.css";
+import axios from 'axios'
+
+const baseUrl = "http://localhost:5000";
 
 function EnviromentDetail(props) {
   function colorStatus(status) {
@@ -12,6 +15,25 @@ function EnviromentDetail(props) {
     }
   }
 
+  function request5gStatus(core){
+    console.log(baseUrl+'/'+core.split(" ")[0])
+      axios.get(baseUrl+'/'+core.split(" ")[0])
+      .then( res =>{
+        const dados = res.data
+        set5gGeneralStatus(
+          dados,
+          props.ActualStatus,
+          props.setStatusFunc
+        )
+        
+        console.log(dados)
+      }
+        
+      )
+      
+    
+
+  }
   const set5gGeneralStatus = (actualStatus, statusBefore, funcSetStatus) => {
     //copiando o dictionary
     //actual5gStatus eh uma lista com 0 e 1 que 0 indica q a funcao de rede ta offline e 1 online atualmente
@@ -46,12 +68,8 @@ function EnviromentDetail(props) {
       <p>Status: {colorStatus(props.Status)}</p>
       <div className="">{coreComponents(props.Title)}</div>
       <button
-        onClick={() =>
-          set5gGeneralStatus(
-            props.ComponentStatus,
-            props.ActualStatus,
-            props.setStatusFunc
-          )
+        onClick={() => request5gStatus(props.Title)
+          
         }
       >
         {(() => {
