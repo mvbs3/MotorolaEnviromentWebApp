@@ -1,15 +1,11 @@
 import "./App.css";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
-import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import React from "react";
+
 
 function App() {
-  const baseUrl = "http://localhost:5000";
-  const [status5g, setStatus5g] = useState({
-    
-  });
-
+ 
   return (
     <div className="App">
       <Header />

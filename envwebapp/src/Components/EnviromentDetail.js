@@ -20,6 +20,7 @@ function EnviromentDetail(props) {
       axios.get(baseUrl+'/'+core.split(" ")[0])
       .then( res =>{
         const dados = res.data
+        console.log(dados)
         set5gGeneralStatus(
           dados,
           props.ActualStatus,
@@ -40,7 +41,7 @@ function EnviromentDetail(props) {
     let copiaStatus5g = { ...statusBefore };
 
     Object.keys(copiaStatus5g).map((key, i) => {
-      copiaStatus5g[key] = (() => {
+      return copiaStatus5g[key] = (() => {
         if (actualStatus[i] === 0) return "Offline";
         else return "Online";
       })();
