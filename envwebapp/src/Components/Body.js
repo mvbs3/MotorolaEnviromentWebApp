@@ -13,6 +13,20 @@ function Body() {
     AUSF: "Offline",
     MYSQL: "Offline",
   });
+  const [status4g, setStatus4g] = useState({
+    MME: "Offline",
+    SGWC: "Offline",
+    SGWU: "Offline",
+    UPF: "Offline",
+    SMF: "Offline",
+    OSMOMSC: "Offline",
+    MONGO: "Offline",
+    NRF: "Offline",
+    SCP: "Offline",
+    OSMOHLR: "Offline",
+    PCRF: "Offline",
+    WEBUI: "Offline",
+  });
 
   return (
     <div className={style.body}>
@@ -26,11 +40,15 @@ function Body() {
       <div className={style.bodyCenter}>
         <h1>OAI 4g/5g enviroment</h1>
         <div className={style.networkFunctions}>
-          <EnviromentDetail Title="4g Enviroment" Status="Offline" />
+          <EnviromentDetail
+            Title="4g Enviroment"
+            Status="Offline"
+            ActualStatus={status4g}
+            setStatusFunc={setStatus4g}
+          />
           <EnviromentDetail
             Title="5g Enviroment"
             Status="Offline"
-            ComponentStatus={[1, 1, 0, 1, 1, 1, 1, 1]}
             ActualStatus={status5g}
             setStatusFunc={setStatus5g}
           />
