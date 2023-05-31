@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import style from "./EnviromentDetail.module.css";
 import axios from "axios";
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = "http://192.168.27.242:5000";
+
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
 
 function EnviromentDetail(props) {
   const [Status, setStatus] = useState(true);
@@ -17,9 +25,28 @@ function EnviromentDetail(props) {
     }
   }
 
-  function request5gStatus(core) {
-    setStatus(Status);
+  function requestStatus(core, status) {
+    for (let i = 0; i < 10; i++) {
+      console.log(
+        //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
+        baseUrl + "/" + core.split(" ")[0] + "/" + "Status"
+      );
+      axios
+        .get(baseUrl + "/" + core.split(" ")[0] + "/" + "Status")
+        .then((res) => {
+          const dados = res.data;
+          //console.log(dados);
+          set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
+
+          console.log(dados);
+        });
+      sleep(5000);
+    }
+  }
+  function requestOnOff(core) {
+    setStatus(!Status);
     console.log(
+      //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
       baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
     );
     axios
@@ -29,6 +56,7 @@ function EnviromentDetail(props) {
         console.log(dados);
         set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
 
+        requestStatus(core, Status);
         console.log(dados);
       });
   }
@@ -88,7 +116,7 @@ function EnviromentDetail(props) {
       <h1>{props.Title}</h1>
       <p>Status: {colorStatus(props.Status)}</p>
       <div className="">{coreComponents(props.Title)}</div>
-      <button onClick={() => request5gStatus(props.Title)}>
+      <button onClick={() => requestOnOff(props.Title)}>
         {Status ? <>Turn On</> : <>Turn Off</>}
       </button>
     </div>
