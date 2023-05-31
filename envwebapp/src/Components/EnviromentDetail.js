@@ -5,7 +5,7 @@ import axios from "axios";
 const baseUrl = "http://localhost:5000";
 
 function EnviromentDetail(props) {
-  const [Status, setStatus] = useState(false);
+  const [Status, setStatus] = useState(true);
   //just paint the colors of the ONLINE or OFFLINE status
   function colorStatus(status) {
     if (status === "Online") {
@@ -18,7 +18,7 @@ function EnviromentDetail(props) {
   }
 
   function request5gStatus(core) {
-    setStatus(!Status);
+    setStatus(Status);
     console.log(
       baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
     );

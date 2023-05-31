@@ -17,10 +17,10 @@ const subtitles5g = [
 ];
 const base5gJson = [0, 0, 0, 0, 0, 0, 0, 0];
 const base4gJson = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var generalOutput;
-
+var generalOutput = [...base5gJson];
+var status5g;
 function check5gStatus(output) {
-  var status5g = [...base5gJson];
+  status5g = [...base5gJson];
   // Essa funcao passa pelo nome de todas as funcoes da rede (um for dentro de subtitles 5g.map)
   //SE existir alguma linha que tenha o nome dessa funcao no comando "docker ps" ele checa se nessa linha esta escrito healthy
   // SE tiver healthy significa q a funcao esta pronta e pode ser usada.
@@ -74,6 +74,7 @@ app.get("/5g/Status", (req, res) => {
   generalOutput = [...base5gJson];
   // run the `ls` command using exec
   exec("docker ps", resultTerminal);
+  console.log("generaloutput: ", generalOutput);
   res.json(generalOutput);
 });
 
