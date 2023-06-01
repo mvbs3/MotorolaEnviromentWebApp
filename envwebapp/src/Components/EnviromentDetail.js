@@ -1,24 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./EnviromentDetail.module.css";
 import axios from "axios";
 
 const baseUrl = "http://192.168.27.242:5000";
-var oai5g = ["AMF", "SMF", "UPF", "NRF", "UDM", "UDR", "AUSF", "MYSQL"];
-var open4g = [
-  "MME",
-  "SGWC",
-  "SGWU",
-  "UPF",
-  "SMF",
-  "OSMOMSC",
-  "HSS",
-  "MONGO",
-  "NRF",
-  "SCP",
-  "OSMOHLR",
-  "PCRF,",
-  "WEBUI",
-];
+var oai5g;
+var open4g;
+var dados = [0,0,0,0,0,0,0,0]; 
+
 function sleep(milliseconds) {
   const date = Date.now();
   let currentDate = null;
@@ -28,33 +16,41 @@ function sleep(milliseconds) {
 }
 
 function EnviromentDetail(props) {
-  const [Status, setStatus] = useState(true);
-  const [Status4gActual, setStatus4gActual] = useState({
-    MME: "Offline",
-    SGWC: "Offline",
-    SGWU: "Offline",
-    UPF: "Offline",
-    SMF: "Offline",
-    OSMOMSC: "Offline",
-    HSS: "Offline",
-    MONGO: "Offline",
-    NRF: "Offline",
-    SCP: "Offline",
-    OSMOHLR: "Offline",
-    PCRF: "Offline",
-    WEBUI: "Offline",
-  });
+  let currentDate = Date.now()
 
-  const [Status5gActual, setStatus5gActual] = useState({
-    AMF: "Offline",
-    SMF: "Offline",
-    UPF: "Offline",
-    NRF: "Offline",
-    UDM: "Offline",
-    UDR: "Offline",
-    AUSF: "Offline",
-    MYSQL: "Offline",
+  useEffect(() => {
+    console.log(dados)
+    var flag = 0
+    //false = ligado
+    if(Status === false && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([1,1,1,1,1,1,1,1])){
+      flag=1
+      console.log("startTime ",currentDate, " and ", Date.now())
+      requestStatus(props.Title)
+      sleep(1000)
+    }else if(Status === true && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([0,0,0,0,0,0,0,0])){
+      flag=1
+      requestStatus(props.Title)
+      sleep(1000)
+      //para o 4g esta quebrado
+    }else  if(Status === false && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([1,1,1,1,1,1,1,1])){
+      flag=1
+      console.log("startTime ",currentDate, " and ", Date.now())
+      requestStatus(props.Title)
+      sleep(1000)
+    }else if(Status === true && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([0,0,0,0,0,0,0,0])){
+      flag=1
+      requestStatus(props.Title)
+      sleep(1000)
+    }else if(flag ==1){
+      requestStatus(props.Title)
+      flag =0
+    }
+    //for (let i =0; i<10; i++){
+    
+    
+    console.log("useEffect");
   });
+  const [Status, setStatus] = useState(true);
   //just paint the colors of the ONLINE or OFFLINE status
   function colorStatus(status) {
     if (status === "Online") {
@@ -67,7 +63,6 @@ function EnviromentDetail(props) {
   }
 
   function requestStatus(core, status) {
-    for (let i = 0; i < 10; i++) {
       console.log(
         //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
         baseUrl + "/" + core.split(" ")[0] + "/" + "Status"
@@ -75,14 +70,13 @@ function EnviromentDetail(props) {
       axios
         .get(baseUrl + "/" + core.split(" ")[0] + "/" + "Status")
         .then((res) => {
-          const dados = res.data;
+          dados = res.data;
           //console.log(dados);
           set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
 
           console.log(dados);
         });
-      sleep(5000);
-    }
+    
   }
   function requestOnOff(core) {
     setStatus(!Status);
@@ -96,9 +90,9 @@ function EnviromentDetail(props) {
         const dados = res.data;
         console.log(dados);
         set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
-
         requestStatus(core, Status);
         console.log(dados);
+        
       });
   }
   const set5gGeneralStatus = (actualStatus, statusBefore, funcSetStatus) => {
@@ -118,18 +112,18 @@ function EnviromentDetail(props) {
     oai5g = { ...props.ActualStatus };
     open4g = { ...props.ActualStatus };
     if (core === "5g Enviroment") {
-      return Object.keys(oai5g).map((key, i) => {
+      return Object.keys(props.ActualStatus).map((key, i) => {
         return (
           <p key={i} className={style.networkFunction}>
-            {key}: {colorStatus(oai5g[key])}
+            {key}: {colorStatus(props.ActualStatus[key])}
           </p>
         );
       });
     } else if (core === "4g Enviroment") {
-      return Object.keys(ActualStatus).map((key, i) => {
+      return Object.keys(props.ActualStatus).map((key, i) => {
         return (
           <p key={i} className={style.networkFunction}>
-            {key}: {colorStatus(ActualStatus[key])}
+            {key}: {colorStatus(props.ActualStatus[key])}
           </p>
         );
       });
