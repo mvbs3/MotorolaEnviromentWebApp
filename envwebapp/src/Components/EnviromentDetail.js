@@ -3,7 +3,22 @@ import style from "./EnviromentDetail.module.css";
 import axios from "axios";
 
 const baseUrl = "http://192.168.27.242:5000";
-
+var oai5g = ["AMF", "SMF", "UPF", "NRF", "UDM", "UDR", "AUSF", "MYSQL"];
+var open4g = [
+  "MME",
+  "SGWC",
+  "SGWU",
+  "UPF",
+  "SMF",
+  "OSMOMSC",
+  "HSS",
+  "MONGO",
+  "NRF",
+  "SCP",
+  "OSMOHLR",
+  "PCRF,",
+  "WEBUI",
+];
 function sleep(milliseconds) {
   const date = Date.now();
   let currentDate = null;
@@ -14,6 +29,32 @@ function sleep(milliseconds) {
 
 function EnviromentDetail(props) {
   const [Status, setStatus] = useState(true);
+  const [Status4gActual, setStatus4gActual] = useState({
+    MME: "Offline",
+    SGWC: "Offline",
+    SGWU: "Offline",
+    UPF: "Offline",
+    SMF: "Offline",
+    OSMOMSC: "Offline",
+    HSS: "Offline",
+    MONGO: "Offline",
+    NRF: "Offline",
+    SCP: "Offline",
+    OSMOHLR: "Offline",
+    PCRF: "Offline",
+    WEBUI: "Offline",
+  });
+
+  const [Status5gActual, setStatus5gActual] = useState({
+    AMF: "Offline",
+    SMF: "Offline",
+    UPF: "Offline",
+    NRF: "Offline",
+    UDM: "Offline",
+    UDR: "Offline",
+    AUSF: "Offline",
+    MYSQL: "Offline",
+  });
   //just paint the colors of the ONLINE or OFFLINE status
   function colorStatus(status) {
     if (status === "Online") {
@@ -71,26 +112,9 @@ function EnviromentDetail(props) {
         else return "Online";
       })());
     });
-
     funcSetStatus(copiaStatus5g);
   };
   function coreComponents(core) {
-    var oai5g = ["AMF", "SMF", "UPF", "NRF", "UDM", "UDR", "AUSF", "MYSQL"];
-    var open4g = [
-      "MME",
-      "SGWC",
-      "SGWU",
-      "UPF",
-      "SMF",
-      "OSMOMSC",
-      "HSS",
-      "MONGO",
-      "NRF",
-      "SCP",
-      "OSMOHLR",
-      "PCRF,",
-      "WEBUI",
-    ];
     oai5g = { ...props.ActualStatus };
     open4g = { ...props.ActualStatus };
     if (core === "5g Enviroment") {
@@ -102,10 +126,10 @@ function EnviromentDetail(props) {
         );
       });
     } else if (core === "4g Enviroment") {
-      return Object.keys(open4g).map((key, i) => {
+      return Object.keys(ActualStatus).map((key, i) => {
         return (
           <p key={i} className={style.networkFunction}>
-            {key}: {colorStatus(open4g[key])}
+            {key}: {colorStatus(ActualStatus[key])}
           </p>
         );
       });
