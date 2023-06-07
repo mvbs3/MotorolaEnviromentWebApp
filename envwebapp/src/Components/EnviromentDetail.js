@@ -5,7 +5,6 @@ import axios from "axios";
 const baseUrl = "http://192.168.27.242:5000";
 var oai5g;
 var open4g;
-var dados = [0,0,0,0,0,0,0,0]; 
 
 function sleep(milliseconds) {
   const date = Date.now();
@@ -16,38 +15,56 @@ function sleep(milliseconds) {
 }
 
 function EnviromentDetail(props) {
-  let currentDate = Date.now()
+  var dados;
+  let currentDate = Date.now();
 
   useEffect(() => {
-    console.log(dados)
-    var flag = 0
+    console.log(dados);
+    var flag = 0;
     //false = ligado
-    if(Status === false && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([1,1,1,1,1,1,1,1])){
-      flag=1
-      console.log("startTime ",currentDate, " and ", Date.now())
-      requestStatus(props.Title)
-      sleep(1000)
-    }else if(Status === true && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([0,0,0,0,0,0,0,0])){
-      flag=1
-      requestStatus(props.Title)
-      sleep(1000)
+    if (
+      Status === false &&
+      props.Title === "5g Enviroment" &&
+      JSON.stringify(dados) !== JSON.stringify([1, 1, 1, 1, 1, 1, 1, 1])
+    ) {
+      flag = 1;
+      console.log("startTime ", currentDate, " and ", Date.now());
+      requestStatus(props.Title);
+      sleep(1000);
+    } else if (
+      Status === true &&
+      props.Title === "5g Enviroment" &&
+      JSON.stringify(dados) !== JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0])
+    ) {
+      flag = 1;
+      requestStatus(props.Title);
+      sleep(1000);
       //para o 4g esta quebrado
-    }else  if(Status === false && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([1,1,1,1,1,1,1,1])){
-      flag=1
-      console.log("startTime ",currentDate, " and ", Date.now())
-      requestStatus(props.Title)
-      sleep(1000)
-    }else if(Status === true && props.Title === "5g Enviroment" && JSON.stringify(dados)!==JSON.stringify([0,0,0,0,0,0,0,0])){
-      flag=1
-      requestStatus(props.Title)
-      sleep(1000)
-    }else if(flag ==1){
-      requestStatus(props.Title)
-      flag =0
+    } else if (
+      Status === false &&
+      props.Title === "4g Enviroment" &&
+      JSON.stringify(dados) !==
+        JSON.stringify([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
+    ) {
+      flag = 1;
+      console.log("startTime ", currentDate, " and ", Date.now());
+      requestStatus(props.Title);
+      sleep(1000);
+    } else if (
+      Status === true &&
+      props.Title === "4g Enviroment" &&
+      JSON.stringify(dados) !==
+        JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    ) {
+      flag = 1;
+      requestStatus(props.Title);
+      sleep(1000);
+    } else if (flag == 1) {
+      requestStatus(props.Title);
+      flag = 0;
     }
     //for (let i =0; i<10; i++){
-    
-    
+
     console.log("useEffect");
   });
   const [Status, setStatus] = useState(true);
@@ -63,20 +80,19 @@ function EnviromentDetail(props) {
   }
 
   function requestStatus(core, status) {
-      console.log(
-        //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
-        baseUrl + "/" + core.split(" ")[0] + "/" + "Status"
-      );
-      axios
-        .get(baseUrl + "/" + core.split(" ")[0] + "/" + "Status")
-        .then((res) => {
-          dados = res.data;
-          //console.log(dados);
-          set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
+    console.log(
+      //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
+      baseUrl + "/" + core.split(" ")[0] + "/" + "Status"
+    );
+    axios
+      .get(baseUrl + "/" + core.split(" ")[0] + "/" + "Status")
+      .then((res) => {
+        dados = res.data;
+        //console.log(dados);
+        set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
 
-          console.log(dados);
-        });
-    
+        console.log(dados);
+      });
   }
   function requestOnOff(core) {
     setStatus(!Status);
@@ -92,7 +108,6 @@ function EnviromentDetail(props) {
         set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
         requestStatus(core, Status);
         console.log(dados);
-        
       });
   }
   const set5gGeneralStatus = (actualStatus, statusBefore, funcSetStatus) => {

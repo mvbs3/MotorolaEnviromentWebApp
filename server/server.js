@@ -17,10 +17,21 @@ const subtitles5g = [
   "oai-ausf",
   "mysql",
 ];
+const subtitles4g = [
+  "oai-amf",
+  "oai-smf",
+  "oai-spgwu",
+  "oai-nrf",
+  "oai-udm",
+  "oai-udr",
+  "oai-ausf",
+  "mysql",
+];
 const base5gJson = [0, 0, 0, 0, 0, 0, 0, 0];
 const base4gJson = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var generalOutput = [];
 var status5g = [];
+var status4g = [];
 
 function check5gStatus(output) {
   status5g = [...base5gJson];
@@ -47,6 +58,31 @@ function check5gStatus(output) {
   return status5g;
 }
 
+function check4gStatus(output) {
+  status4g = [...base4gJson];
+  // Essa funcao passa pelo nome de todas as funcoes da rede (um for dentro de subtitles 5g.map)
+  //SE existir alguma linha que tenha o nome dessa funcao no comando "docker ps" ele checa se nessa linha esta escrito healthy
+  // SE tiver healthy significa q a funcao esta pronta e pode ser usada.
+  subtitles4g.map((func4g) => {
+    //console.log(func5g);
+    output.map((outputLine) => {
+      //console.log(
+      //  outputLine.indexOf(func5g) != -1 &&
+      //    outputLine.includes("healthy") == true
+      //);
+      if (
+        outputLine.indexOf(func4g) != -1 &&
+        outputLine.includes("healthy") == true
+      ) {
+        status4g[subtitles5g.indexOf(func4g)] = 1;
+        //console.log(status5g);
+      }
+    });
+  });
+  //console.log(status5g)
+  return status4g;
+}
+
 function resultTerminal(err, output) {
   // once the command has completed, the callback function is called
   if (err) {
@@ -57,8 +93,6 @@ function resultTerminal(err, output) {
   // log the output received from the command
   console.log("Output:,\n", output.split("\n"));
   output = output.split("\n");
-
-  return check5gStatus(output);
 }
 
 app.get("/5g/on", (req, res) => {
@@ -99,6 +133,7 @@ app.get("/5g/Status", (req, res) => {
 app.get("/4g/on", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
+  // colocar comando pra ligar nsa-deploy
   exec("docker ps", resultTerminal);
   res.json(generalOutput);
 });
@@ -106,6 +141,7 @@ app.get("/4g/on", (req, res) => {
 app.get("/4g/off", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
+  //colocar comando para desligar nsa-deploy
   exec("docker ps", resultTerminal);
   res.json(generalOutput);
 });
@@ -113,7 +149,44 @@ app.get("/4g/off", (req, res) => {
 app.get("/4g/Status", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
-  exec("docker ps", resultTerminal);
+  const output = execSync("docker ps", { encoding: "utf-8" });
+
+  generalOutput = check4gStatus(output.split("\n"));
+  //console.log(generalOutput)
+  console.log("general output: ", output);
+  console.log("status4g: ", generalOutput);
+  res.json(generalOutput);
+});
+
+app.get("/enb/on", (req, res) => {
+  generalOutput = [...base4gJson];
+
+  res.json(generalOutput);
+});
+
+app.get("/enb/off", (req, res) => {
+  generalOutput = [...base4gJson];
+
+  res.json(generalOutput);
+});
+
+app.get("/gnb/nsa/on", (req, res) => {
+  generalOutput = [...base4gJson];
+  res.json(generalOutput);
+});
+
+app.get("/gnb/nsa/off", (req, res) => {
+  generalOutput = [...base4gJson];
+  res.json(generalOutput);
+});
+
+app.get("/gnb/sa/on", (req, res) => {
+  generalOutput = [...base4gJson];
+  res.json(generalOutput);
+});
+
+app.get("/gnb/sa/off", (req, res) => {
+  generalOutput = [...base4gJson];
   res.json(generalOutput);
 });
 
