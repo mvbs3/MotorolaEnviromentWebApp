@@ -45,12 +45,14 @@ function Body() {
             Status="Offline"
             ActualStatus={status4g}
             setStatusFunc={setStatus4g}
+            initialStatus={[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
           />
           <EnviromentDetail
             Title="5g Enviroment"
             Status="Offline"
             ActualStatus={status5g}
             setStatusFunc={setStatus5g}
+            initialStatus={[0, 0, 0, 0, 0, 0, 0, 0]}
           />
           <EnviromentDetail Title="OAI Gnb" Status="Offline" />
         </div>

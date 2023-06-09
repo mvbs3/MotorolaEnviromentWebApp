@@ -16,25 +16,33 @@ function sleep(milliseconds) {
 
 function EnviromentDetail(props) {
   var dados;
-  let currentDate = Date.now();
 
   useEffect(() => {
-    console.log(dados);
+   
+    var statusIntCopy = []
+    var statusStringCopy = {...props.ActualStatus}
+    Object.keys(statusStringCopy).map((key,i) => {
+      if(statusStringCopy[key] === "Online"){
+        statusIntCopy.push(1)
+      }else if (statusStringCopy[key] === "Offline"){
+        statusIntCopy.push(0)
+      }
+    })
+    console.log("DADOS ",statusIntCopy);
     var flag = 0;
     //false = ligado
     if (
       Status === false &&
       props.Title === "5g Enviroment" &&
-      JSON.stringify(dados) !== JSON.stringify([1, 1, 1, 1, 1, 1, 1, 1])
+      JSON.stringify(statusIntCopy) !== JSON.stringify([1, 1, 1, 1, 1, 1, 1, 1])
     ) {
       flag = 1;
-      console.log("startTime ", currentDate, " and ", Date.now());
       requestStatus(props.Title);
       sleep(1000);
     } else if (
       Status === true &&
       props.Title === "5g Enviroment" &&
-      JSON.stringify(dados) !== JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0])
+      JSON.stringify(statusIntCopy) !== JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0])
     ) {
       flag = 1;
       requestStatus(props.Title);
@@ -43,23 +51,22 @@ function EnviromentDetail(props) {
     } else if (
       Status === false &&
       props.Title === "4g Enviroment" &&
-      JSON.stringify(dados) !==
+      JSON.stringify(statusIntCopy) !==
         JSON.stringify([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])
     ) {
       flag = 1;
-      console.log("startTime ", currentDate, " and ", Date.now());
       requestStatus(props.Title);
       sleep(1000);
     } else if (
       Status === true &&
       props.Title === "4g Enviroment" &&
-      JSON.stringify(dados) !==
+      JSON.stringify(statusIntCopy) !==
         JSON.stringify([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     ) {
       flag = 1;
       requestStatus(props.Title);
       sleep(1000);
-    } else if (flag == 1) {
+     } else if (flag == 1) {
       requestStatus(props.Title);
       flag = 0;
     }
@@ -144,6 +151,7 @@ function EnviromentDetail(props) {
       });
     }
   }
+  
   return (
     <div className={style.enviromentBlock}>
       <h1>{props.Title}</h1>

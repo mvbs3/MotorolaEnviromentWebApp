@@ -17,15 +17,20 @@ const subtitles5g = [
   "oai-ausf",
   "mysql",
 ];
+
 const subtitles4g = [
-  "oai-amf",
-  "oai-smf",
-  "oai-spgwu",
-  "oai-nrf",
-  "oai-udm",
-  "oai-udr",
-  "oai-ausf",
-  "mysql",
+  "mme",
+  "sgwc",
+  "sgwu",
+  "upf",
+  "smf",
+  "osmomsc",
+  "mongo",
+  "nrf",
+  "scp",
+  "osmohlr",
+  "pcrf",
+  "webui",
 ];
 const base5gJson = [0, 0, 0, 0, 0, 0, 0, 0];
 const base4gJson = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -71,10 +76,9 @@ function check4gStatus(output) {
       //    outputLine.includes("healthy") == true
       //);
       if (
-        outputLine.indexOf(func4g) != -1 &&
-        outputLine.includes("healthy") == true
+        outputLine.indexOf(func4g) != -1 
       ) {
-        status4g[subtitles5g.indexOf(func4g)] = 1;
+        status4g[subtitles4g.indexOf(func4g)] = 1;
         //console.log(status5g);
       }
     });
@@ -134,7 +138,7 @@ app.get("/4g/on", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
   // colocar comando pra ligar nsa-deploy
-  exec("docker ps", resultTerminal);
+  exec("docker compose -f /home/serverthree/tecs/5G_NSA/nsa-deploy.yaml up", resultTerminal);
   res.json(generalOutput);
 });
 
@@ -142,7 +146,7 @@ app.get("/4g/off", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
   //colocar comando para desligar nsa-deploy
-  exec("docker ps", resultTerminal);
+  exec("docker compose -f /home/serverthree/tecs/5G_NSA/nsa-deploy.yaml down", resultTerminal);
   res.json(generalOutput);
 });
 
@@ -152,6 +156,7 @@ app.get("/4g/Status", (req, res) => {
   const output = execSync("docker ps", { encoding: "utf-8" });
 
   generalOutput = check4gStatus(output.split("\n"));
+
   //console.log(generalOutput)
   console.log("general output: ", output);
   console.log("status4g: ", generalOutput);
