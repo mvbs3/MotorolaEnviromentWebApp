@@ -71,11 +71,11 @@ function EnviromentDetail(props) {
   //just paint the colors of the ONLINE or OFFLINE status
   function colorStatus(status) {
     if (status === "Online") {
-      return <b style={{ color: "green" }}>{status}</b>;
+      return <b style={{ color: "green", fontSize: 25 }}>{status}</b>;
     } else if (status === "Offline") {
-      return <b style={{ color: "red" }}>{status}</b>;
+      return <b style={{ color: "red", fontSize: 25 }}>{status}</b>;
     } else {
-      return <b style={{ color: "yellow" }}>{status}</b>;
+      return <b style={{ color: "yellow", fontSize: 25 }}>{status}</b>;
     }
   }
 
