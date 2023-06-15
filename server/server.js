@@ -75,9 +75,7 @@ function check4gStatus(output) {
       //  outputLine.indexOf(func5g) != -1 &&
       //    outputLine.includes("healthy") == true
       //);
-      if (
-        outputLine.indexOf(func4g) != -1 
-      ) {
+      if (outputLine.indexOf(func4g) != -1) {
         status4g[subtitles4g.indexOf(func4g)] = 1;
         //console.log(status5g);
       }
@@ -138,7 +136,10 @@ app.get("/4g/on", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
   // colocar comando pra ligar nsa-deploy
-  exec("docker compose -f /home/serverthree/tecs/5G_NSA/nsa-deploy.yaml up", resultTerminal);
+  exec(
+    "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/nsa-deploy.yaml up",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
@@ -146,7 +147,10 @@ app.get("/4g/off", (req, res) => {
   generalOutput = [...base4gJson];
   // run the `ls` command using exec
   //colocar comando para desligar nsa-deploy
-  exec("docker compose -f /home/serverthree/tecs/5G_NSA/nsa-deploy.yaml down", resultTerminal);
+  exec(
+    "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/nsa-deploy.yaml down",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
@@ -166,22 +170,38 @@ app.get("/4g/Status", (req, res) => {
 app.get("/enb/on", (req, res) => {
   generalOutput = [...base4gJson];
 
+  exec(
+    "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/oaienb.yaml up",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
 app.get("/enb/off", (req, res) => {
   generalOutput = [...base4gJson];
 
+  exec(
+    "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/oaienb.yaml down",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
 app.get("/gnb/nsa/on", (req, res) => {
   generalOutput = [...base4gJson];
+  exec(
+    "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/oaignb.yaml up",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
 app.get("/gnb/nsa/off", (req, res) => {
   generalOutput = [...base4gJson];
+  exec(
+    "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/oaignb.yaml up",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
