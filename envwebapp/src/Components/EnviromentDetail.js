@@ -18,6 +18,7 @@ function EnviromentDetail(props) {
   var dados;
   let currentDate = Date.now();
 
+  const [Status, setStatus] = useState(true);
   useEffect(() => {
     console.log(dados);
     var flag = 0;
@@ -67,7 +68,7 @@ function EnviromentDetail(props) {
 
     console.log("useEffect");
   });
-  const [Status, setStatus] = useState(true);
+
   //just paint the colors of the ONLINE or OFFLINE status
   function colorStatus(status) {
     if (status === "Online") {
@@ -89,7 +90,11 @@ function EnviromentDetail(props) {
       .then((res) => {
         dados = res.data;
         //console.log(dados);
-        set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
+        set5gGeneralStatus(
+          dados,
+          props.ActualStatus,
+          props.setStatusActualFunc
+        );
 
         console.log(dados);
       });
@@ -105,7 +110,11 @@ function EnviromentDetail(props) {
       .then((res) => {
         const dados = res.data;
         console.log(dados);
-        set5gGeneralStatus(dados, props.ActualStatus, props.setStatusFunc);
+        set5gGeneralStatus(
+          dados,
+          props.ActualStatus,
+          props.setStatusActualFunc
+        );
         requestStatus(core, Status);
         console.log(dados);
       });

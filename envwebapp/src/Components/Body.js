@@ -3,7 +3,13 @@ import style from "./Body.module.css";
 import EnviromentDetail from "./EnviromentDetail";
 
 function Body() {
-  const [status5g, setStatus5g] = useState({
+  const [status5g, setStatus5g] = useState("Offline");
+  const [status4g, setStatus4g] = useState("Offline");
+  const [statusGnbSA, setStatusGnbSA] = useState("Offline");
+  const [statusGnbNSA, setStatusGnbNSA] = useState("Offline");
+  const [statusEnb, setStatusEnb] = useState("Offline");
+
+  const [statusCore5g, setStatusCore5g] = useState({
     AMF: "Offline",
     SMF: "Offline",
     UPF: "Offline",
@@ -13,7 +19,8 @@ function Body() {
     AUSF: "Offline",
     MYSQL: "Offline",
   });
-  const [status4g, setStatus4g] = useState({
+
+  const [statusCore4g, setStatusCore4g] = useState({
     MME: "Offline",
     SGWC: "Offline",
     SGWU: "Offline",
@@ -42,17 +49,35 @@ function Body() {
         <div className={style.networkFunctions}>
           <EnviromentDetail
             Title="4g Enviroment"
-            Status="Offline"
-            ActualStatus={status4g}
-            setStatusFunc={setStatus4g}
+            Status={status4g}
+            setStatus={setStatus4g}
+            ActualStatus={statusCore4g}
+            setStatusActualFunc={setStatusCore4g}
           />
           <EnviromentDetail
             Title="5g Enviroment"
-            Status="Offline"
-            ActualStatus={status5g}
-            setStatusFunc={setStatus5g}
+            Status={status5g}
+            setStatus={setStatus5g}
+            ActualStatus={statusCore5g}
+            setStatusActualFunc={setStatusCore5g}
           />
-          <EnviromentDetail Title="OAI Gnb" Status="Offline" />
+          <EnviromentDetail
+            Title="OAI ENB"
+            Status={statusEnb}
+            setStatus={setStatusEnb}
+          />
+
+          <EnviromentDetail
+            Title="OAI GNB SA"
+            Status={statusGnbSA}
+            setStatus={setStatusGnbSA}
+          />
+
+          <EnviromentDetail
+            Title="OAI GNB NSA"
+            Status={statusGnbNSA}
+            setStatus={setStatusGnbNSA}
+          />
         </div>
       </div>
     </div>
