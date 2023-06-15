@@ -53,6 +53,7 @@ function Body() {
             setStatus={setStatus4g}
             ActualStatus={statusCore4g}
             setStatusActualFunc={setStatusCore4g}
+            initialStatus={[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
           />
           <EnviromentDetail
             Title="5g Enviroment"
@@ -60,6 +61,7 @@ function Body() {
             setStatus={setStatus5g}
             ActualStatus={statusCore5g}
             setStatusActualFunc={setStatusCore5g}
+            initialStatus={[0, 0, 0, 0, 0, 0, 0, 0]}
           />
           <EnviromentDetail
             Title="OAI ENB"
