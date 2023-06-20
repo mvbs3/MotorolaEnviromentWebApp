@@ -64,19 +64,19 @@ function Body() {
             initialStatus={[0, 0, 0, 0, 0, 0, 0, 0]}
           />
           <EnviromentDetail
-            Title="OAI ENB"
+            Title="Enb OAI"
             Status={statusEnb}
             setStatus={setStatusEnb}
           />
 
           <EnviromentDetail
-            Title="OAI GNB SA"
+            Title="GnbSA OAI"
             Status={statusGnbSA}
             setStatus={setStatusGnbSA}
           />
 
           <EnviromentDetail
-            Title="OAI GNB NSA"
+            Title="GnbNSA OAI"
             Status={statusGnbNSA}
             setStatus={setStatusGnbNSA}
           />

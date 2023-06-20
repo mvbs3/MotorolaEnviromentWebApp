@@ -126,7 +126,7 @@ function EnviromentDetail(props) {
         console.log(dados);
       });
   }
-  const set5gGeneralStatus = (actualStatus, statusBefore, funcSetStatus) => {
+  const set5gGeneralStatus = (actualStatus, statusBefore = [], funcSetStatus = (()=> [])) => {
     //copiando o dictionary
     //actual5gStatus eh uma lista com 0 e 1 que 0 indica q a funcao de rede ta offline e 1 online atualmente
     let copiaStatus5g = { ...statusBefore };

@@ -166,6 +166,25 @@ app.get("/4g/Status", (req, res) => {
   console.log("status4g: ", generalOutput);
   res.json(generalOutput);
 });
+app.get("/enb/Status", (req, res) => {
+  generalOutput = [...base4gJson];
+  // run the `ls` command using exec
+  res.json(generalOutput);
+});
+
+app.get("/GnbSA/Status", (req, res) => {
+  generalOutput = [...base4gJson];
+  // run the `ls` command using exec
+  res.json(generalOutput);
+});
+
+app.get("/GnbSA/Status", (req, res) => {
+  generalOutput = [...base4gJson];
+  // run the `ls` command using exec
+  res.json(generalOutput);
+});
+
+
 
 app.get("/enb/on", (req, res) => {
   generalOutput = [...base4gJson];
@@ -187,7 +206,7 @@ app.get("/enb/off", (req, res) => {
   res.json(generalOutput);
 });
 
-app.get("/gnb/nsa/on", (req, res) => {
+app.get("/GnbNSA/on", (req, res) => {
   generalOutput = [...base4gJson];
   exec(
     "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/oaignb.yaml up",
@@ -196,7 +215,7 @@ app.get("/gnb/nsa/on", (req, res) => {
   res.json(generalOutput);
 });
 
-app.get("/gnb/nsa/off", (req, res) => {
+app.get("/GnbNSA/off", (req, res) => {
   generalOutput = [...base4gJson];
   exec(
     "docker compose -f /home/serverthree/tecs/LTE/open5gs-sdr/oaignb.yaml up",
@@ -205,13 +224,21 @@ app.get("/gnb/nsa/off", (req, res) => {
   res.json(generalOutput);
 });
 
-app.get("/gnb/sa/on", (req, res) => {
+app.get("/GnbSA/on", (req, res) => {
   generalOutput = [...base4gJson];
+  exec(
+    "docker compose -f /home/serverthree/oai-sdr-cin/ran/oaignb.yaml up",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
-app.get("/gnb/sa/off", (req, res) => {
+app.get("/GnbSA/off", (req, res) => {
   generalOutput = [...base4gJson];
+  exec(
+    "docker compose -f /home/serverthree/oai-sdr-cin/ran/oaignb.yaml down",
+    resultTerminal
+  );
   res.json(generalOutput);
 });
 
