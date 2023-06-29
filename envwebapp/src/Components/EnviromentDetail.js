@@ -19,17 +19,16 @@ function EnviromentDetail(props) {
 
   const [Status, setStatus] = useState(true);
   useEffect(() => {
-   
-    var statusIntCopy = []
-    var statusStringCopy = {...props.ActualStatus}
-    Object.keys(statusStringCopy).map((key,i) => {
-      if(statusStringCopy[key] === "Online"){
-        statusIntCopy.push(1)
-      }else if (statusStringCopy[key] === "Offline"){
-        statusIntCopy.push(0)
+    var statusIntCopy = [];
+    var statusStringCopy = { ...props.ActualStatus };
+    Object.keys(statusStringCopy).map((key, i) => {
+      if (statusStringCopy[key] === "Online") {
+        statusIntCopy.push(1);
+      } else if (statusStringCopy[key] === "Offline") {
+        statusIntCopy.push(0);
       }
-    })
-    console.log("DADOS ",statusIntCopy);
+    });
+    console.log("DADOS ", statusIntCopy);
     var flag = 0;
     //false = ligado
     if (
@@ -67,7 +66,7 @@ function EnviromentDetail(props) {
       flag = 1;
       requestStatus(props.Title);
       sleep(1000);
-     } else if (flag == 1) {
+    } else if (flag == 1) {
       requestStatus(props.Title);
       flag = 0;
     }
@@ -126,7 +125,11 @@ function EnviromentDetail(props) {
         console.log(dados);
       });
   }
-  const set5gGeneralStatus = (actualStatus, statusBefore = [], funcSetStatus = (()=> [])) => {
+  const set5gGeneralStatus = (
+    actualStatus,
+    statusBefore = [],
+    funcSetStatus = () => []
+  ) => {
     //copiando o dictionary
     //actual5gStatus eh uma lista com 0 e 1 que 0 indica q a funcao de rede ta offline e 1 online atualmente
     let copiaStatus5g = { ...statusBefore };
@@ -160,13 +163,16 @@ function EnviromentDetail(props) {
       });
     }
   }
-  
+
   return (
     <div className={style.enviromentBlock}>
       <h1>{props.Title}</h1>
-      <p>Status: {colorStatus(props.Status)}</p>
+      <p className={style.totalStatus}>Status: {colorStatus(props.Status)}</p>
       <div className="">{coreComponents(props.Title)}</div>
-      <button onClick={() => requestOnOff(props.Title)}>
+      <button
+        className={style.buttonTurnOn}
+        onClick={() => requestOnOff(props.Title)}
+      >
         {Status ? <>Turn On</> : <>Turn Off</>}
       </button>
     </div>
