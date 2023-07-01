@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from "./Body.module.css";
 import EnviromentDetail from "./EnviromentDetail";
+import DevicesConnected from "./DevicesConnected";
 
 function Body() {
   const [status5g, setStatus5g] = useState("Offline");
@@ -34,7 +35,30 @@ function Body() {
     PCRF: "Offline",
     WEBUI: "Offline",
   });
-
+  function showDevices() {
+    if (statusGnbNSA == "Online" && statusGnbSA == "Online") {
+      return (
+        <div className={style.DevicesBody}>
+          <DevicesConnected Status={status4g} setStatus={setStatus4g} />
+          <DevicesConnected Status={status5g} setStatus={setStatus5g} />
+        </div>
+      );
+    } else if (statusGnbNSA == "Online") {
+      return (
+        <div className={style.DevicesBody}>
+          <DevicesConnected Status={status5g} setStatus={setStatus5g} />
+        </div>
+      );
+    } else if (statusGnbSA == "Online") {
+      return (
+        <div className={style.DevicesBody}>
+          <DevicesConnected Status={status4g} setStatus={setStatus4g} />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
   return (
     <div className={style.body}>
       <div className={style.menu}>
@@ -81,6 +105,7 @@ function Body() {
             setStatus={setStatusGnbNSA}
           />
         </div>
+        {showDevices()}
       </div>
     </div>
   );

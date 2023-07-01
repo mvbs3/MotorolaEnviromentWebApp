@@ -41,3 +41,13 @@
   background-color: #2e3235;
   margin-left: 23px;
 }
+
+.DevicesBody {
+  display: flex;
+  flex-direction: column;
+  width: 1230px;
+  height: 200px;
+  background-color: #2e3235;
+  margin-left: 23px;
+  margin-top: 23px;
+}

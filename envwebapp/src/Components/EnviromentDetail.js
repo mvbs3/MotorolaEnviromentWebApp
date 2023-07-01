@@ -30,6 +30,10 @@ function EnviromentDetail(props) {
     });
     console.log("DADOS ", statusIntCopy);
     var flag = 0;
+    props.setStatus("Offline");
+    if (Status == false) {
+      checkStatusTotal();
+    }
     //false = ligado
     if (
       Status === false &&
@@ -142,6 +146,21 @@ function EnviromentDetail(props) {
     });
     funcSetStatus(copiaStatus5g);
   };
+  function checkStatusTotal() {
+    var statusIntCopy = [];
+    let statusStringCopy = { ...props.ActualStatus };
+    let i = 0;
+    Object.keys(statusStringCopy).map((key, index) => {
+      if (statusStringCopy[key] == "Offline") {
+        i += 1;
+      }
+    });
+    if (i == 0) {
+      props.setStatus("Online");
+    } else {
+      props.setStatus("Offline");
+    }
+  }
   function coreComponents(core) {
     oai5g = { ...props.ActualStatus };
     open4g = { ...props.ActualStatus };
