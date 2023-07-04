@@ -36,20 +36,20 @@ function Body() {
     WEBUI: "Offline",
   });
   function showDevices() {
-    if (statusGnbNSA == "Online" && statusGnbSA == "Online") {
+    if (statusGnbNSA === "Online" && statusGnbSA === "Online") {
       return (
         <div className={style.DevicesBody}>
           <DevicesConnected Status={status4g} setStatus={setStatus4g} />
           <DevicesConnected Status={status5g} setStatus={setStatus5g} />
         </div>
       );
-    } else if (statusGnbNSA == "Online") {
+    } else if (statusGnbNSA === "Online") {
       return (
         <div className={style.DevicesBody}>
           <DevicesConnected Status={status5g} setStatus={setStatus5g} />
         </div>
       );
-    } else if (statusGnbSA == "Online") {
+    } else if (statusGnbSA === "Online") {
       return (
         <div className={style.DevicesBody}>
           <DevicesConnected Status={status4g} setStatus={setStatus4g} />

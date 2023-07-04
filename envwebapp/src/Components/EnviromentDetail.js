@@ -3,8 +3,8 @@ import style from "./EnviromentDetail.module.css";
 import axios from "axios";
 
 const baseUrl = "http://192.168.27.242:5000";
-var oai5g;
-var open4g;
+//var oai5g;
+//var open4g;
 
 function sleep(milliseconds) {
   const date = Date.now();
@@ -27,11 +27,12 @@ function EnviromentDetail(props) {
       } else if (statusStringCopy[key] === "Offline") {
         statusIntCopy.push(0);
       }
+      return key;
     });
     console.log("DADOS ", statusIntCopy);
     var flag = 0;
     props.setStatus("Offline");
-    if (Status == false) {
+    if (Status === false) {
       checkStatusTotal();
     }
     //false = ligado
@@ -70,7 +71,7 @@ function EnviromentDetail(props) {
       flag = 1;
       requestStatus(props.Title);
       sleep(1000);
-    } else if (flag == 1) {
+    } else if (flag === 1) {
       requestStatus(props.Title);
       flag = 0;
     }
@@ -93,10 +94,12 @@ function EnviromentDetail(props) {
   function requestStatus(core, status) {
     console.log(
       //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
-      baseUrl + "/" + core.split(" ")[0] + "/" + "Status"
+      //baseUrl + "/" + core.split(" ")[0] + "/" + "Status"
+      `${baseUrl}/${core.split(" ")[0]}/Status`
     );
     axios
-      .get(baseUrl + "/" + core.split(" ")[0] + "/" + "Status")
+      //.get(baseUrl + "/" + core.split(" ")[0] + "/" + "Status")
+      .get(`${baseUrl}/${core.split(" ")[0]}/Status`)
       .then((res) => {
         dados = res.data;
         //console.log(dados);
@@ -114,6 +117,7 @@ function EnviromentDetail(props) {
     console.log(
       //baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
       baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off")
+      //`${baseUrl}/${core.split(" ")[0]}/${Status ? "on" : "off"}`
     );
     axios
       .get(baseUrl + "/" + core.split(" ")[0] + "/" + (Status ? "on" : "off"))
@@ -147,23 +151,23 @@ function EnviromentDetail(props) {
     funcSetStatus(copiaStatus5g);
   };
   function checkStatusTotal() {
-    var statusIntCopy = [];
     let statusStringCopy = { ...props.ActualStatus };
     let i = 0;
     Object.keys(statusStringCopy).map((key, index) => {
-      if (statusStringCopy[key] == "Offline") {
+      if (statusStringCopy[key] === "Offline") {
         i += 1;
       }
+      return key;
     });
-    if (i == 0) {
+    if (i === 0) {
       props.setStatus("Online");
     } else {
       props.setStatus("Offline");
     }
   }
   function coreComponents(core) {
-    oai5g = { ...props.ActualStatus };
-    open4g = { ...props.ActualStatus };
+    //oai5g = { ...props.ActualStatus };
+    //open4g = { ...props.ActualStatus };
     if (core === "5g Enviroment") {
       return Object.keys(props.ActualStatus).map((key, i) => {
         return (
