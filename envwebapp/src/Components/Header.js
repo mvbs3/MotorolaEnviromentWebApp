@@ -9,12 +9,14 @@ function Header() {
         <a href="index.html">
           <img src={motoLogo} alt="logo" />
         </a>
+        {/*
         <ul className={style.headerItens}>
           <button>buttonSideBar</button>
           <a href="https://www.instagram.com/ratue_tcg/">Login</a>
           <a href="https://www.instagram.com/ratue_tcg/">Login</a>
           <a href="https://www.instagram.com/ratue_tcg/">Login</a>
-        </ul>
+        </ul>{" "}
+        */}
       </nav>
     </header>
   );

@@ -35,12 +35,21 @@ function Body() {
     PCRF: "Offline",
     WEBUI: "Offline",
   });
+  const [statusRanEnb, setStatusRanEnb] = useState({});
   function showDevices() {
     if (statusGnbNSA === "Online" && statusGnbSA === "Online") {
       return (
         <div className={style.DevicesBody}>
-          <DevicesConnected Status={status4g} setStatus={setStatus4g} />
-          <DevicesConnected Status={status5g} setStatus={setStatus5g} />
+          <DevicesConnected
+            Title="4g/5g Nsa"
+            Status={status4g}
+            setStatus={setStatus4g}
+          />
+          <DevicesConnected
+            Title="5g Sa"
+            Status={status5g}
+            setStatus={setStatus5g}
+          />
         </div>
       );
     } else if (statusGnbNSA === "Online") {
@@ -65,7 +74,7 @@ function Body() {
         <nav>
           <button>OAI</button>
           <button>Open5gs</button>
-          <button>Statistic</button>
+          {/*<button>Statistic</button>*/}
         </nav>
       </div>
       <div className={style.bodyCenter}>

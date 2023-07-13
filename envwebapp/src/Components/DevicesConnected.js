@@ -10,11 +10,16 @@ function colorStatus(status) {
     return <b style={{ color: "yellow", fontSize: 25 }}>{status}</b>;
   }
 }
-
+function logAccess() {
+  file = fopen("amf.log", 0);
+  str = fread(file, flength(file));
+  return str;
+}
 function DevicesConnected(props) {
   return (
     <div className={style.DevicesStatus}>
-      teste: {colorStatus(props.Status)}
+      {/*Devices Connected: {colorStatus(props.Status)}*/}
+      {props.Title} Devics Connected: {logAccess()}
     </div>
   );
 }

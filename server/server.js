@@ -97,6 +97,31 @@ function resultTerminal(err, output) {
   output = output.split("\n");
 }
 
+function logAccess() {
+  const fs = require("fs");
+
+  fs.readFile(
+    "/home/mvbsilva/Desktop/MotorolaEnviromentWebApp/envwebapp/src/Components/img/amf.log",
+    "utf8",
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      data = data.split("\n").reverse();
+      let connected = [];
+
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].includes("gNBs' information")) {
+          connected.push(data[i - 2]);
+          break;
+        }
+      }
+      console.log(connected);
+    }
+  );
+}
+
 app.get("/5g/on", (req, res) => {
   generalOutput = [...base5gJson];
   // run the `ls` command using exec
@@ -184,8 +209,6 @@ app.get("/GnbSA/Status", (req, res) => {
   res.json(generalOutput);
 });
 
-
-
 app.get("/enb/on", (req, res) => {
   generalOutput = [...base4gJson];
 
@@ -245,3 +268,5 @@ app.get("/GnbSA/off", (req, res) => {
 app.listen(port, () => {
   console.log("Server started at port ", { port });
 });
+
+console.log(logAccess());
