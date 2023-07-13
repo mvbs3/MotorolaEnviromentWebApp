@@ -97,7 +97,7 @@ function resultTerminal(err, output) {
   output = output.split("\n");
 }
 
-function logAccess() {
+function gnbConnected() {
   const fs = require("fs");
 
   fs.readFile(
@@ -113,6 +113,30 @@ function logAccess() {
 
       for (var i = 0; i < data.length; i++) {
         if (data[i].includes("gNBs' information")) {
+          connected.push(data[i - 2]);
+          break;
+        }
+      }
+      console.log(connected);
+    }
+  );
+}
+function devicesConnected() {
+  const fs = require("fs");
+
+  fs.readFile(
+    "/home/mvbsilva/Desktop/MotorolaEnviromentWebApp/envwebapp/src/Components/img/amf.log",
+    "utf8",
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      data = data.split("\n").reverse();
+      let connected = [];
+
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].includes("UEs' information")) {
           connected.push(data[i - 2]);
           break;
         }
@@ -269,4 +293,4 @@ app.listen(port, () => {
   console.log("Server started at port ", { port });
 });
 
-console.log(logAccess());
+console.log(devicesConnected());
